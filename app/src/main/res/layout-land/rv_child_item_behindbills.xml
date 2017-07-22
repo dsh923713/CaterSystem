@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_dishes_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="梅菜扣肉"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/tv_dishes_remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="不加辣"
+        android:visibility="gone"
+        android:layout_below="@+id/tv_dishes_name"
+        android:textColor="@color/gary"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_dishes_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tv_dishes_remark"
+        android:background="@color/line_color"/>
+</RelativeLayout>
