@@ -4,7 +4,7 @@
               android:layout_height="wrap_content"
               android:layout_marginRight="10dp"
               android:layout_marginTop="10dp"
-              android:background="@drawable/gray_to_white_bg_5_shape"
+              android:background="@drawable/gary_to_white_bg_5_shape"
               android:orientation="vertical">
 
     <RelativeLayout

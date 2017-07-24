@@ -71,6 +71,10 @@ public class DateUtil {
      */
     public static final String DATE_HOUR_FORMAT = "yyyy-MM-dd HH:mm";
     /**
+     * 日期格式yyyy-MM-dd HH:mm字符串常量
+     */
+    public static final String DATE_HOUR_FORMAT2 = "yyyy.MM.dd　HH:mm";
+    /**
      * 日期格式yyyy年MM月dd日 HH:mm字符串常量
      */
     public static final String DATE_HOUR_FORMAT1 = "yyyy年MM月dd日 HH:mm";
@@ -198,6 +202,16 @@ public class DateUtil {
      */
     public static String toTime7(Long time) {
         SimpleDateFormat format = new SimpleDateFormat(DATE_HOUR_FORMAT);
+        Date d = new Date(time);
+        String t = format.format(d);
+        return t;
+    } /**
+     * 转换时间戳为2016-3-25 00:00<br>
+     *
+     * @return
+     */
+    public static String toDateHourFormat(Long time) {
+        SimpleDateFormat format = new SimpleDateFormat(DATE_HOUR_FORMAT2);
         Date d = new Date(time);
         String t = format.format(d);
         return t;

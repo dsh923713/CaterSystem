@@ -29,28 +29,56 @@ public class BehindCookBean {
         return cookingStatus;
     }
 
+    public void setCookingStatus(int cookingStatus) {
+        this.cookingStatus = cookingStatus;
+    }
+
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getNum() {
         return num;
     }
 
+    public void setNum(String num) {
+        this.num = num;
+    }
+
     public String getDishesName() {
         return dishesName;
+    }
+
+    public void setDishesName(String dishesName) {
+        this.dishesName = dishesName;
     }
 
     public int getDishesNum() {
         return dishesNum;
     }
 
+    public void setDishesNum(int dishesNum) {
+        this.dishesNum = dishesNum;
+    }
+
     public long getWaitTime() {
         return waitTime;
     }
 
+    public void setWaitTime(long waitTime) {
+        this.waitTime = waitTime;
+    }
+
     public String getDishesRemark() {
         return dishesRemark;
+    }
+
+    public void setDishesRemark(String dishesRemark) {
+        this.dishesRemark = dishesRemark;
     }
 }
 

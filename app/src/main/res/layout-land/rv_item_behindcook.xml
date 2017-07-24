@@ -69,7 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/no_cooking"
-            android:layout_toLeftOf="@+id/tv_dishes_num"
             android:textColor="@color/t313131"
             android:textSize="15sp"/>
 
@@ -79,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="2道"
             android:textColor="@color/white"
             android:textSize="20sp"/>

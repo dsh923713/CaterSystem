@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/grey_bg_5_shape"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/cb_table_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:background="@drawable/gary_to_blue_bg_selector"
+        android:button="@null"
+        android:padding="10dp"
+        android:text="A125"
+        android:textColor="@color/black_to_white"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_dishes_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="红烧肉"
+            android:textColor="@color/t313131"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_dishes_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="(加辣)"
+            android:textColor="@color/te7a117"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_dishes_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="1道"
+            android:textColor="@color/t313131"
+            android:textSize="20sp" />
+    </LinearLayout>
+</LinearLayout>

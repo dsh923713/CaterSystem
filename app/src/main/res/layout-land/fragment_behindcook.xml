@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:background="@color/white">
 
         <RadioGroup
             android:id="@+id/rg_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/gray_to_white_bg_3_shape"
+            android:background="@drawable/gary_to_white_bg_3_shape"
             android:orientation="horizontal"
             android:padding="0.5dp">
 
@@ -76,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/iv_voice"
+            android:layout_toLeftOf="@+id/tv_lately_complete"
             android:layout_toRightOf="@+id/rg_style"
             android:paddingLeft="20dp">
 
@@ -86,8 +87,8 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/blue_dot"
                 android:drawablePadding="10dp"
-                android:text="未烹饪　5"
                 android:maxLines="1"
+                android:text="未烹饪　5"
                 android:textColor="@color/t313131"
                 android:textSize="15sp"/>
 
@@ -98,55 +99,71 @@
                 android:layout_marginLeft="15dp"
                 android:drawableLeft="@drawable/orange_dot"
                 android:drawablePadding="10dp"
+                android:maxLines="1"
                 android:text="正在烹饪　12"
-                android:maxLines="1"
-                android:textColor="@color/t313131"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/tv_already_cooking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:drawableLeft="@drawable/green_dot"
-                android:drawablePadding="10dp"
-                android:text="已经烹饪　8"
-                android:maxLines="1"
-                android:textColor="@color/t313131"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/tv_cannot_cooking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:drawableLeft="@drawable/gray_dot"
-                android:drawablePadding="10dp"
-                android:text="不能烹饪　1"
-                android:maxLines="1"
                 android:textColor="@color/t313131"
                 android:textSize="15sp"/>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_voice"
+        <TextView
+            android:id="@+id/tv_lately_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@+id/iv_set"
-            android:src="@mipmap/ic_voice"/>
+            android:layout_toLeftOf="@+id/tv_history_dishes"
+            android:background="@drawable/gary_to_grey_bg_3_shape"
+            android:drawableLeft="@mipmap/ic_lately_complete"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="@string/lately_complete"
+            android:textColor="@color/gary"
+            android:textSize="15sp"/>
 
-        <ImageView
-            android:id="@+id/iv_set"
+        <TextView
+            android:id="@+id/tv_history_dishes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/tv_set"
+            android:background="@drawable/gary_to_grey_bg_3_shape"
+            android:drawableLeft="@mipmap/ic_history"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="@string/history_dishes"
+            android:textColor="@color/gary"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
-            android:src="@mipmap/ic_set"/>
+            android:background="@drawable/gary_to_grey_bg_3_shape"
+            android:drawableLeft="@mipmap/ic_set"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="5dp"
+            android:text="@string/set"
+            android:textColor="@color/gary"
+            android:textSize="15sp"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

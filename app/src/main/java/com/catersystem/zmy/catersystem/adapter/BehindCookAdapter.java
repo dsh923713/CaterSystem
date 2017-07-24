@@ -36,14 +36,6 @@ public class BehindCookAdapter extends BaseQuickAdapter<BehindCookBean, BaseView
                 holder.setText(R.id.tv_cooking_status, R.string.cooking);
                 holder.setBackgroundRes(R.id.ll_bg, R.drawable.orange_bg_5_shape);
                 break;
-            case 2:
-                holder.setText(R.id.tv_cooking_status, R.string.already_cooking);
-                holder.setBackgroundRes(R.id.ll_bg, R.drawable.green_bg_5_shape);
-                break;
-            case 3:
-                holder.setText(R.id.tv_cooking_status, R.string.cannot_cooking);
-                holder.setBackgroundRes(R.id.ll_bg, R.drawable.gray_bg_5_shape);
-                break;
         }
     }
 }

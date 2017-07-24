@@ -110,15 +110,15 @@ public class DialogUtil {
         return dialog;
     }
 
-    public static Dialog getDialog1(Context context, View view) {
+    public static Dialog getDialog1(Context context, View view, double width, double height) {
         final Dialog dialog = new AlertDialog.Builder(context).create();
         dialog.setCancelable(false);
         dialog.show();
         Window dialogWindow = dialog.getWindow();
         dialogWindow.setContentView(view);
         WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-        p.width = (int) (ScreenUtil.getScreenWidthPix(context)*0.95);
-        p.height = (int) (ScreenUtil.getScreenHeightPix(context)*0.78);
+        p.width = (int) width;
+        p.height = (int) height;
         dialogWindow.setAttributes(p);
         return dialog;
     }
