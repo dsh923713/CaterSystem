@@ -9,23 +9,53 @@ import java.util.List;
 
 public class BehindBillsBean {
     private String type; //堂食或外卖
-    private String num; //A1-An
+    private String tableNum; //A1-An
     private long waitTime;//等待时间
     private List<DishesListBean> dishesList;//菜品列表
+    private long completeTime;//完成时间
+    private int goScrollY;
+    private int itemPosition;
 
-    public BehindBillsBean(String type, String num, long waitTime, List<DishesListBean> dishesList) {
+    public int getItemPosition() {
+        return itemPosition;
+    }
+
+    public void setItemPosition(int itemPosition) {
+        this.itemPosition = itemPosition;
+    }
+
+    public int getGoScrollY() {
+        return goScrollY;
+    }
+
+    public void setGoScrollY(int goScrollY) {
+        this.goScrollY = goScrollY;
+    }
+//    public BehindBillsBean(String type, String num, long waitTime, List<DishesListBean> dishesList) {
+//        this.type = type;
+//        this.num = num;
+//        this.waitTime = waitTime;
+//        this.dishesList = dishesList;
+//    }
+
+    public BehindBillsBean(String type, String tableNum, long waitTime, List<DishesListBean> dishesList, long completeTime) {
         this.type = type;
-        this.num = num;
+        this.tableNum = tableNum;
         this.waitTime = waitTime;
         this.dishesList = dishesList;
+        this.completeTime = completeTime;
+    }
+
+    public long getCompleteTime() {
+        return completeTime;
     }
 
     public String getType() {
         return type;
     }
 
-    public String getNum() {
-        return num;
+    public String getTableNum() {
+        return tableNum;
     }
 
     public long getWaitTime() {

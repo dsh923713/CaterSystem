@@ -31,8 +31,14 @@ dependencies {
     //状态栏颜色
     compile 'com.jaeger.statusbarutil:library:1.4.0'
    //万能recyclerview适配器
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.24'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.25'
     //butterknife
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    //联网框架
+    compile 'com.zhousf.lib:okhttp3:2.8.6'
+    //GSON解析JSON
+    compile 'com.google.code.gson:gson:2.8.1'
+    //listview万能适配器
+    compile 'com.zhy:base-adapter:3.0.3'
 }

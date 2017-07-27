@@ -19,8 +19,9 @@
         android:textColor="@color/black_to_white"
         android:textSize="15sp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_dishes_lately_complete"
+    <com.catersystem.zmy.catersystem.view.NewRecyclerView
+        android:id="@+id/lv_dishes_lately_complete"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

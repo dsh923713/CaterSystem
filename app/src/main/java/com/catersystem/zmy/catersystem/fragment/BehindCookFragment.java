@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ import butterknife.Unbinder;
  * Created by Administrator on 2017/7/19 0019.
  */
 
-public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnInitListener {
+public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnInitListener, BillsLatelyCompleteAdapter.IGetPositionListener {
     @BindView(R.id.rb_all)
     RadioButton rbAll;//全部
     @BindView(R.id.rb_eat_in)
@@ -90,6 +91,15 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
     private BillsLatelyCompleteAdapter billsLatelyCompleteAdapter;
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+    }
+
+    @Override
     protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_behindcook, container, false);
         return view;
@@ -111,6 +121,7 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
             rvDishes.setLayoutManager(new GridLayoutManager(activity, 5));
             adapter = new BehindCookAdapter(cookingBeenList);
             rvDishes.setAdapter(adapter);
+
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -122,7 +133,7 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
                             break;
                         case 1://正在烹饪
                             cookingBeenList.remove(((BehindCookBean) adapter.getData().get(position)));
-                            adapter.notifyItemRemoved(position);
+                            adapter.notifyDataSetChanged();
                             showShortToast("已完成烹饪！");
                             break;
                     }
@@ -188,14 +199,15 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
                     tvCallOut.setClickable(true);
                 }
             });
-        }else { //单据
+        } else { //单据
             getBehindBillData();
-            rvDialog.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.HORIZONTAL));
-            billsLatelyCompleteAdapter = new BillsLatelyCompleteAdapter(billsBeenList);
+            rvDialog.setLayoutManager(new GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false));
+            billsLatelyCompleteAdapter = new BillsLatelyCompleteAdapter(this, billsBeenList);
             rvDialog.setAdapter(billsLatelyCompleteAdapter);
             billsLatelyCompleteAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    mPosition = position;
                     billsLatelyCompleteAdapter.setPosition(position);
                     billsLatelyCompleteAdapter.notifyDataSetChanged();
                 }
@@ -218,22 +230,38 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
                         if (id == 1) {
                             latelyCompleteAdapter.setPosition(-1);
                             latelyCompleteAdapter.notifyDataSetChanged();
+                        } else {
+                            billsLatelyCompleteAdapter.setPosition(-1);
+                            billsLatelyCompleteAdapter.notifyDataSetChanged();
                         }
                         tvCompleteTime.setVisibility(View.GONE);//隐藏完成时间
                         tvCallOut.setClickable(false);
                     }
                     break;
                 case R.id.tv_reform: //重做
+
                     break;
                 case R.id.tv_no_complete: //还未完成
+                    if (mPosition != -1) {
+                        latelyCompleteAdapter.getData().remove(mPosition);
+                        latelyCompleteAdapter.notifyItemRemoved(mPosition);
+                        mPosition = -1;
+                    }
                     break;
                 case R.id.tv_call_out: //呼叫
                     if (tts != null && !tts.isSpeaking()) {
                         tts.setPitch(1.0f);//设置音色
-                        tts.speak(((LatelyCompleteBean) latelyCompleteAdapter.getData().get(mPosition)).getTableNum()
-                                + "号请道后厨取餐！", TextToSpeech.QUEUE_ADD, null, "speech");
-                        showShortToast(((LatelyCompleteBean) latelyCompleteAdapter.getData().get(mPosition)).getTableNum()
-                                + "号请道后厨取餐！");
+                        if (id == 1) {
+                            tts.speak(((LatelyCompleteBean) latelyCompleteAdapter.getData().get(mPosition)).getTableNum()
+                                    + "号请道后厨取餐！", TextToSpeech.QUEUE_ADD, null, "speech");
+                            showShortToast(((LatelyCompleteBean) latelyCompleteAdapter.getData().get(mPosition)).getTableNum()
+                                    + "号请道后厨取餐！");
+                        } else {
+                            tts.speak(((BehindBillsBean) billsLatelyCompleteAdapter.getData().get(mPosition)).getTableNum()
+                                    + "号请道后厨取餐！", TextToSpeech.QUEUE_ADD, null, "speech");
+                            showShortToast(((BehindBillsBean) billsLatelyCompleteAdapter.getData().get(mPosition)).getTableNum()
+                                    + "号请道后厨取餐！");
+                        }
                     }
                     break;
             }
@@ -261,19 +289,18 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
         billsBeenList = new ArrayList<>();
         dishesList = new ArrayList<>();
         dishesList1 = new ArrayList<>();
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList));
-        billsBeenList.add(new BehindBillsBean("堂食", "A1", 1020, dishesList1));
-        billsBeenList.add(new BehindBillsBean("堂食", "A1", 1020, dishesList));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList1));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList1));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList1));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList));
-        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList));
+        billsBeenList.add(new BehindBillsBean("外卖", "A1", 1020, dishesList, System.currentTimeMillis() + 156431l));
+        billsBeenList.add(new BehindBillsBean("堂食", "A2", 1020, dishesList1, System.currentTimeMillis() + 1411151l));
+        billsBeenList.add(new BehindBillsBean("堂食", "A3", 1020, dishesList, System.currentTimeMillis() + 154422l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A4", 1020, dishesList, System.currentTimeMillis() + 12111151l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A5", 1020, dishesList, System.currentTimeMillis() + 44232151l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A6", 1020, dishesList1, System.currentTimeMillis() + 112312151l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A7", 1020, dishesList, System.currentTimeMillis() + 151111l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A8", 1020, dishesList, System.currentTimeMillis() + 151231l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A9", 1020, dishesList, System.currentTimeMillis() + 1512151l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A10", 1020, dishesList1, System.currentTimeMillis() + 15453251l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A11", 1020, dishesList1, System.currentTimeMillis() + 1454551l));
+        billsBeenList.add(new BehindBillsBean("外卖", "A12", 1020, dishesList, System.currentTimeMillis() + 133221l));
         dishesList.add(new BehindBillsBean.DishesListBean("红烧茄子", 1, "加辣"));
         dishesList.add(new BehindBillsBean.DishesListBean("回锅肉", 1, ""));
         dishesList.add(new BehindBillsBean.DishesListBean("排骨汤", 1, ""));
@@ -283,8 +310,6 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
         dishesList.add(new BehindBillsBean.DishesListBean("鱼头汤", 1, ""));
         dishesList1.add(new BehindBillsBean.DishesListBean("炒时蔬", 1, ""));
         dishesList1.add(new BehindBillsBean.DishesListBean("花蛤蛋汤", 1, ""));
-        dishesList1.add(new BehindBillsBean.DishesListBean("干锅田鸡", 1, ""));
-        dishesList1.add(new BehindBillsBean.DishesListBean("清蒸鲤鱼", 1, ""));
     }
 
     //最近完成 模拟数据
@@ -324,17 +349,17 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
             int language = tts.setLanguage(Locale.CHINA);
             if (language == TextToSpeech.LANG_MISSING_DATA
                     || language == TextToSpeech.LANG_NOT_SUPPORTED) {
-                showShortToast("数据丢失或不支持");
+                Log.d("", "数据丢失或不支持");
             }
         }
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
+    public void getPosition(int position) {
+        mPosition = position;
+        tvCompleteTime.setVisibility(View.VISIBLE);
+        tvCompleteTime.setText("完成时间：" + DateUtil.toDateHourFormat(((BehindBillsBean) billsLatelyCompleteAdapter
+                .getData().get(position)).getCompleteTime()));
+        tvCallOut.setClickable(true);
     }
 }

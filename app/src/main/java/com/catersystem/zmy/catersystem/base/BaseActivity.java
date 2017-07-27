@@ -19,6 +19,8 @@ import com.jaeger.library.StatusBarUtil;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static android.R.attr.fragment;
+
 /**
  * Created by Administrator on 2017/5/15 0015.
  */
@@ -54,9 +56,15 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param extras
      */
-    protected void getBundleExtras(Bundle extras){};
+    protected void getBundleExtras(Bundle extras) {
+    }
 
-    protected void initContentView(Bundle bundle){};//恢复数据
+    ;
+
+    protected void initContentView(Bundle bundle) {
+    }
+
+    ;//恢复数据
 
     protected abstract void initView();//初始化控件
 
@@ -159,10 +167,30 @@ public abstract class BaseActivity extends AppCompatActivity {
         beginTransaction.commit();
     }
 
+    /**
+     * 隐藏fragmentA 显示fragmentB
+     * @param resId
+     * @param fragmentA
+     * @param fragmentB
+     */
+    public void showOrHideFragment(int resId, Fragment fragmentA, Fragment fragmentB) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction beginTransaction = fragmentManager.beginTransaction();
+        if (fragmentA != null) {
+            beginTransaction.hide(fragmentA);
+        }
+        if (fragmentB == null) {
+            beginTransaction.add(resId, fragmentB);
+        } else {
+            beginTransaction.show(fragmentB);
+        }
+        beginTransaction.commit();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (unbinder != null){ //解绑注解
+        if (unbinder != null) { //解绑注解
             unbinder.unbind();
             unbinder = null;
         }
