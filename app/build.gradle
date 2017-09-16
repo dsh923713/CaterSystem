@@ -17,10 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -30,7 +35,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //状态栏颜色
     compile 'com.jaeger.statusbarutil:library:1.4.0'
-   //万能recyclerview适配器
+    //万能recyclerview适配器
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.25'
     //butterknife
     compile 'com.jakewharton:butterknife:8.6.0'
@@ -41,4 +46,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     //listview万能适配器
     compile 'com.zhy:base-adapter:3.0.3'
+    compile files('libs/jpush-android-3.0.8.jar')
+    compile files('libs/jcore-android-1.1.6.jar')
 }

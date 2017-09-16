@@ -45,7 +45,8 @@ import butterknife.Unbinder;
  * Created by Administrator on 2017/7/19 0019.
  */
 
-public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnInitListener, BillsLatelyCompleteAdapter.IGetPositionListener {
+public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnInitListener,
+        BillsLatelyCompleteAdapter.IGetPositionListener {
     @BindView(R.id.rb_all)
     RadioButton rbAll;//全部
     @BindView(R.id.rb_eat_in)
@@ -100,7 +101,8 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
     }
 
     @Override
-    protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected View initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_behindcook, container, false);
         return view;
     }
@@ -195,7 +197,8 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
                     latelyCompleteAdapter.setPosition(position);
                     latelyCompleteAdapter.notifyDataSetChanged();
                     tvCompleteTime.setVisibility(View.VISIBLE);
-                    tvCompleteTime.setText("完成时间：" + DateUtil.toDateHourFormat(((LatelyCompleteBean) adapter.getData().get(position)).getCompleteTime()));
+                    tvCompleteTime.setText("完成时间：" + DateUtil.toDateHourFormat(((LatelyCompleteBean) adapter.getData
+                            ().get(position)).getCompleteTime()));
                     tvCallOut.setClickable(true);
                 }
             });
@@ -252,15 +255,19 @@ public class BehindCookFragment extends BaseFragment implements TextToSpeech.OnI
                     if (tts != null && !tts.isSpeaking()) {
                         tts.setPitch(1.0f);//设置音色
                         if (id == 1) {
-                            tts.speak(((LatelyCompleteBean) latelyCompleteAdapter.getData().get(mPosition)).getTableNum()
-                                    + "号请道后厨取餐！", TextToSpeech.QUEUE_ADD, null, "speech");
-                            showShortToast(((LatelyCompleteBean) latelyCompleteAdapter.getData().get(mPosition)).getTableNum()
-                                    + "号请道后厨取餐！");
+                            tts.speak(((LatelyCompleteBean) latelyCompleteAdapter.getData().get(mPosition))
+                                    .getTableNum()
+                                    + "号请到后厨取餐！", TextToSpeech.QUEUE_ADD, null, "speech");
+                            showShortToast(((LatelyCompleteBean) latelyCompleteAdapter.getData().get(mPosition))
+                                    .getTableNum()
+                                    + "号请到后厨取餐！");
                         } else {
-                            tts.speak(((BehindBillsBean) billsLatelyCompleteAdapter.getData().get(mPosition)).getTableNum()
-                                    + "号请道后厨取餐！", TextToSpeech.QUEUE_ADD, null, "speech");
-                            showShortToast(((BehindBillsBean) billsLatelyCompleteAdapter.getData().get(mPosition)).getTableNum()
-                                    + "号请道后厨取餐！");
+                            tts.speak(((BehindBillsBean) billsLatelyCompleteAdapter.getData().get(mPosition))
+                                    .getTableNum()
+                                    + "号请到后厨取餐！", TextToSpeech.QUEUE_ADD, null, "speech");
+                            showShortToast(((BehindBillsBean) billsLatelyCompleteAdapter.getData().get(mPosition))
+                                    .getTableNum()
+                                    + "号请到后厨取餐！");
                         }
                     }
                     break;

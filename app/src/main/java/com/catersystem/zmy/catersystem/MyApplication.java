@@ -13,6 +13,8 @@ import com.okhttplib.cookie.persistence.SharedPrefsCookiePersistor;
 
 import java.io.File;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by Administrator on 2017/5/22.
@@ -24,6 +26,10 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
+
+        //开启jpush跟日志
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
 
         String downloadFileDir = Environment.getExternalStorageDirectory().getPath()+"/okHttp_download/";
         String cacheDir = Environment.getExternalStorageDirectory().getPath();
